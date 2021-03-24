@@ -186,7 +186,8 @@
 				207943F5260B0DA900C84D7E /* ImageCollectionCell.swift */,
 				207943F6260B0DA900C84D7E /* ImageCollectionCell.xib */,
 			);
-			path = ImageCollectionCell;
+			name = ImageCollectionCell;
+			path = iOSPhotoEditor/ImageCollectionCell;
 			sourceTree = "<group>";
 		};
 		3A3950E07EAF79B2F6581DA520319ED5 /* MultiplePhotoEditor */ = {
