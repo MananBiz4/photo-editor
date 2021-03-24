@@ -151,7 +151,8 @@
 				207943F0260B032900C84D7E /* MultiplePhotoEditorVC.swift */,
 				207943F1260B032900C84D7E /* MultiplePhotoEditorVC.xib */,
 			);
-			path = MultiplePhotoEditor;
+			name = MultiplePhotoEditor;
+			path = iOSPhotoEditor/MultiplePhotoEditor;
 			sourceTree = "<group>";
 		};
 		2712C4DD51E329C3B1355E558529F990 /* Support Files */ = {
