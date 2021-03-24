@@ -13,6 +13,14 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     
+    let arrImages: [UIImage] = [
+        UIImage.init(named: "11") ?? UIImage(),
+        UIImage.init(named: "12") ?? UIImage(),
+        UIImage.init(named: "13") ?? UIImage(),
+        UIImage.init(named: "14") ?? UIImage(),
+        UIImage.init(named: "15") ?? UIImage()
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -53,7 +61,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         
         let photoEditor = PhotoEditorViewController(nibName:"PhotoEditorViewController",bundle: Bundle(for: PhotoEditorViewController.self))
         photoEditor.photoEditorDelegate = self
-        photoEditor.image = image
+        photoEditor.arrImages = self.arrImages + [image]
         //Colors for drawing and Text, If not set default values will be used
         //photoEditor.colors = [.red, .blue, .green]
         
@@ -63,7 +71,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         }
         
         //To hide controls - array of enum control
-        //photoEditor.hiddenControls = [.crop, .draw, .share]
+        photoEditor.hiddenControls = [.crop, .sticker, .save,.share, .next]
         photoEditor.modalPresentationStyle = UIModalPresentationStyle.currentContext //or .overFullScreen for transparency
         present(photoEditor, animated: true, completion: nil)
     }
