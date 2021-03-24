@@ -34,9 +34,8 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: PhotoEditorDelegate {
-    
-    func doneEditing(image: UIImage) {
-        imageView.image = image
+    func doneEditing(arrImage: [UIImage]) {
+        imageView.image = arrImage.first
     }
     
     func canceledEditing() {
