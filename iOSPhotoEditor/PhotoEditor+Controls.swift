@@ -18,6 +18,8 @@ public enum control {
     case save
     case share
     case clear
+    case next
+    case cancel
 }
 
 extension PhotoEditorViewController {
@@ -30,11 +32,13 @@ extension PhotoEditorViewController {
     }
 
     @IBAction func cropButtonTapped(_ sender: UIButton) {
-        let controller = CropViewController()
-        controller.delegate = self
-        controller.image = image
-        let navController = UINavigationController(rootViewController: controller)
-        present(navController, animated: true, completion: nil)
+        if let selectedImage = getSelectedImage() {
+            let controller = CropViewController()
+            controller.delegate = self
+            controller.image = selectedImage
+            let navController = UINavigationController(rootViewController: controller)
+            present(navController, animated: true, completion: nil)
+        }
     }
 
     @IBAction func stickersButtonTapped(_ sender: Any) {
@@ -117,7 +121,6 @@ extension PhotoEditorViewController {
     func hideControls() {
         for control in hiddenControls {
             switch control {
-                
             case .clear:
                 clearButton.isHidden = true
             case .crop:
@@ -132,6 +135,10 @@ extension PhotoEditorViewController {
                 stickerButton.isHidden = true
             case .text:
                 stickerButton.isHidden = true
+            case .next:
+                nextButton.isHidden = true
+            case .cancel:
+                cancelButton.isHidden = true
             }
         }
     }

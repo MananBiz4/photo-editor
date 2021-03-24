@@ -8,6 +8,11 @@
 
 import UIKit
 
+struct ImageData {
+    var image: UIImage
+    var isSelected: Bool
+}
+
 public final class PhotoEditorViewController: UIViewController {
     
     /** holding the 2 imageViews original image and drawing & stickers */
@@ -38,8 +43,12 @@ public final class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
-    public var image: UIImage?
+    // Images collection
+    @IBOutlet weak var imagesCollectionView: UICollectionView!
+    
     /**
      Array of Stickers -UIImage- that the user will choose from
      */
@@ -69,7 +78,14 @@ public final class PhotoEditorViewController: UIViewController {
     var imageViewToPan: UIImageView?
     var isTyping: Bool = false
     
-    
+    public var arrImages: [UIImage] = [UIImage]() {
+        didSet {
+            arrImageData = arrImages.map({ (image) -> ImageData in
+                return ImageData.init(image: image, isSelected: false)
+            })
+        }
+    }
+    var arrImageData: [ImageData] = [ImageData]()
     var stickersViewController: StickersViewController!
 
     //Register Custom font before we load XIB
@@ -80,7 +96,6 @@ public final class PhotoEditorViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        self.setImageView(image: image!)
         
         deleteView.layer.cornerRadius = deleteView.bounds.height / 2
         deleteView.layer.borderWidth = 2.0
@@ -103,6 +118,11 @@ public final class PhotoEditorViewController: UIViewController {
         configureCollectionView()
         stickersViewController = StickersViewController(nibName: "StickersViewController", bundle: Bundle(for: StickersViewController.self))
         hideControls()
+        if !arrImageData.isEmpty {
+            arrImageData[0].isSelected = true
+            setImageView(image: arrImageData[0].image)
+        }
+        setupImagesCollection()
     }
     
     func configureCollectionView() {
@@ -127,8 +147,8 @@ public final class PhotoEditorViewController: UIViewController {
     
     func setImageView(image: UIImage) {
         imageView.image = image
-        let size = image.suitableSize(widthLimit: UIScreen.main.bounds.width)
-        imageViewHeightConstraint.constant = (size?.height)!
+//        let size = image.suitableSize(widthLimit: UIScreen.main.bounds.width)
+//        imageViewHeightConstraint.constant = (size?.height)!
     }
     
     func hideToolbar(hide: Bool) {
@@ -150,7 +170,66 @@ extension PhotoEditorViewController: ColorDelegate {
     }
 }
 
+// MARK: - Images collection
+extension PhotoEditorViewController {
+    private func setupImagesCollection() {
+        
+        imagesCollectionView.dataSource = self
+        imagesCollectionView.delegate = self
+        // Register cell
+        imagesCollectionView.register(
+        UINib(nibName: ImageCollectionCell.identifier, bundle: Bundle(for: ImageCollectionCell.self)),
+        forCellWithReuseIdentifier: ImageCollectionCell.identifier)
+        let sizeValue = imagesCollectionView.bounds.height
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: sizeValue, height: sizeValue)
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 8
+        imagesCollectionView.collectionViewLayout = layout
+        
+        imagesCollectionView.backgroundColor = .clear
+        imagesCollectionView.showsHorizontalScrollIndicator = false
+    }
+    
+    func getSelectedImage() -> UIImage? {
+        return arrImageData.first(where: { $0.isSelected } )?.image
+    }
+}
 
+// MARK: - Images collection data source
+extension PhotoEditorViewController: UICollectionViewDataSource {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arrImageData.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView
+            .dequeueReusableCell(
+                withReuseIdentifier: ImageCollectionCell.identifier,
+                for: indexPath
+            ) as? ImageCollectionCell else {
+                return UICollectionViewCell()
+        }
+        cell.configure(data: arrImageData[indexPath.row])
+        return cell
+    }
+}
 
-
-
+// MARK: - Images collection delegate
+extension PhotoEditorViewController: UICollectionViewDelegate {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        setImageView(image: arrImageData[indexPath.row].image)
+        if let firstIndex = arrImageData.firstIndex(where: { $0.isSelected }) {
+            let img = self.canvasView.toImage()
+            arrImageData[firstIndex].image = img
+            arrImageData[firstIndex].isSelected = false
+            self.clearButtonTapped(self.clearButton)
+            arrImageData[indexPath.row].isSelected = true
+            collectionView.reloadItems(at: [indexPath, IndexPath.init(item: firstIndex, section: 0)])
+        } else {
+            arrImageData[indexPath.row].isSelected = true
+            collectionView.reloadItems(at: [indexPath])
+        }
+    }
+}
