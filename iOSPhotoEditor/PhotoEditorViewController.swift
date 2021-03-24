@@ -232,4 +232,15 @@ extension PhotoEditorViewController: UICollectionViewDelegate {
             collectionView.reloadItems(at: [indexPath])
         }
     }
+    
+    func updateCurrentImage() {
+        if let firstIndex = arrImageData.firstIndex(where: { $0.isSelected }) {
+            let img = self.canvasView.toImage()
+            arrImageData[firstIndex].image = img
+        }
+    }
+    
+    public func nextAction() {
+        continueButtonPressed(UIButton())
+    }
 }

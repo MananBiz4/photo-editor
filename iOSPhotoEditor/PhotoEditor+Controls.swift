@@ -105,6 +105,7 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func continueButtonPressed(_ sender: Any) {
+        updateCurrentImage()
         let images = arrImageData.map({ (data) -> UIImage in
             return data.image
         })
