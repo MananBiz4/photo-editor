@@ -77,9 +77,9 @@
 		1F6E178924F97BEB2A9C74D6969D8B37 /* MultiplePhotoEditorVC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MultiplePhotoEditorVC.swift; sourceTree = "<group>"; };
 		207943F5260B0DA900C84D7E /* ImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionCell.swift; sourceTree = "<group>"; };
 		207943F6260B0DA900C84D7E /* ImageCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionCell.xib; sourceTree = "<group>"; };
-		207943F9260B4F4D00C84D7E /* clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear@2x.png"; sourceTree = "<group>"; };
-		207943FA260B4F4D00C84D7E /* clear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear@3x.png"; sourceTree = "<group>"; };
-		207943FB260B4F4E00C84D7E /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
+		207943F9260B4F4D00C84D7E /* clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "clear@2x.png"; path = "iOSPhotoEditor/clear@2x.png"; sourceTree = "<group>"; };
+		207943FA260B4F4D00C84D7E /* clear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "clear@3x.png"; path = "iOSPhotoEditor/clear@3x.png"; sourceTree = "<group>"; };
+		207943FB260B4F4E00C84D7E /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clear.png; path = iOSPhotoEditor/clear.png; sourceTree = "<group>"; };
 		243410B9535472556EA4BB6DBC133A0D /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 		25EE83FF2DF73DAFD45556A1B1AC9F2E /* ColorsCollectionViewDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ColorsCollectionViewDelegate.swift; path = iOSPhotoEditor/ColorsCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		262FBD289D6433E7AC21CFBE0F62D250 /* CropRectView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CropRectView.swift; path = iOSPhotoEditor/CropRectView.swift; sourceTree = "<group>"; };
