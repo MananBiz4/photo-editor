@@ -35,7 +35,7 @@ extension PhotoEditorViewController {
             if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
                 self.colorPickerViewBottomConstraint?.constant = 0.0
             } else {
-                self.colorPickerViewBottomConstraint?.constant = endFrame?.size.height ?? 0.0
+                self.colorPickerViewBottomConstraint?.constant = (endFrame?.size.height ?? 0.0) - imagesCollectionView.bounds.height
             }
             UIView.animate(withDuration: duration,
                            delay: TimeInterval(0),
