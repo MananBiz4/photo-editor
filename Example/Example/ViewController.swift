@@ -70,7 +70,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         }
         
         //To hide controls - array of enum control
-        photoEditor.hiddenControls = [.crop, .sticker, .save,.share, .next]
+        photoEditor.hiddenControls = [.crop, .sticker, .share]
         photoEditor.modalPresentationStyle = UIModalPresentationStyle.currentContext //or .overFullScreen for transparency
         present(photoEditor, animated: true, completion: nil)
     }
