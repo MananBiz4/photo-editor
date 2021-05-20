@@ -219,17 +219,19 @@ extension PhotoEditorViewController: UICollectionViewDataSource {
 // MARK: - Images collection delegate
 extension PhotoEditorViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        setImageView(image: arrImageData[indexPath.row].image)
-        if let firstIndex = arrImageData.firstIndex(where: { $0.isSelected }) {
-            let img = self.canvasView.toImage()
-            arrImageData[firstIndex].image = img
-            arrImageData[firstIndex].isSelected = false
-            self.clearButtonTapped(self.clearButton)
-            arrImageData[indexPath.row].isSelected = true
-            collectionView.reloadItems(at: [indexPath, IndexPath.init(item: firstIndex, section: 0)])
-        } else {
-            arrImageData[indexPath.row].isSelected = true
-            collectionView.reloadItems(at: [indexPath])
+        if arrImageData[indexPath.row].isSelected == false  {
+            setImageView(image: arrImageData[indexPath.row].image)
+            if let firstIndex = arrImageData.firstIndex(where: { $0.isSelected }) {
+                let img = self.canvasView.toImage()
+                arrImageData[firstIndex].image = img
+                arrImageData[firstIndex].isSelected = false
+                self.clearButtonTapped(self.clearButton)
+                arrImageData[indexPath.row].isSelected = true
+                collectionView.reloadItems(at: [indexPath, IndexPath.init(item: firstIndex, section: 0)])
+            } else {
+                arrImageData[indexPath.row].isSelected = true
+                collectionView.reloadItems(at: [indexPath])
+            }
         }
     }
     
